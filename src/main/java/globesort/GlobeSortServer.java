@@ -80,7 +80,7 @@ public class GlobeSortServer {
 
     static class GlobeSortImpl extends GlobeSortGrpc.GlobeSortImplBase {
         @Override
-        public long ping(Empty req, final StreamObserver<Empty> responseObserver) {
+        public void ping(Empty req, final StreamObserver<Empty> responseObserver) {
             long beforeRun = System.currentTimeMillis();
             
             Empty response = Empty.newBuilder().build();
@@ -90,11 +90,11 @@ public class GlobeSortServer {
 
             System.out.print("Duration to run ping in milliseconds = ");
             System.out.println(afterRun - beforeRun);
-            return (afterRun - beforeRun);
+            // return (afterRun - beforeRun);
         }
 
         @Override
-        public long sortIntegers(IntArray req, final StreamObserver<IntArray> responseObserver) {
+        public void sortIntegers(IntArray req, final StreamObserver<IntArray> responseObserver) {
             long beforeRun = System.currentTimeMillis();
 
             Integer[] values = req.getValuesList().toArray(new Integer[req.getValuesList().size()]);
@@ -109,7 +109,7 @@ public class GlobeSortServer {
 
             System.out.print("Duration to run sortIntegers in milliseconds = ");
             System.out.println(afterRun - beforeRun);
-            return (afterRun - beforeRun);
+            // return (afterRun - beforeRun);
         }
     }
 }
