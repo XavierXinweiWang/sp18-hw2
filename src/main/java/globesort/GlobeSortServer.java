@@ -81,16 +81,9 @@ public class GlobeSortServer {
     static class GlobeSortImpl extends GlobeSortGrpc.GlobeSortImplBase {
         @Override
         public void ping(Empty req, final StreamObserver<Empty> responseObserver) {
-            long beforeRun = System.currentTimeMillis();
-            
             Empty response = Empty.newBuilder().build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
-            
-            long afterRun = System.currentTimeMillis();
-            System.out.print("Duration to run ping in milliseconds = ");
-            System.out.println(afterRun - beforeRun);
-            // return (afterRun - beforeRun);
         }
 
         @Override
