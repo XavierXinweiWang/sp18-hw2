@@ -86,8 +86,8 @@ public class GlobeSortServer {
             Empty response = Empty.newBuilder().build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
+            
             long afterRun = System.currentTimeMillis();
-
             System.out.print("Duration to run ping in milliseconds = ");
             System.out.println(afterRun - beforeRun);
             // return (afterRun - beforeRun);
@@ -107,6 +107,7 @@ public class GlobeSortServer {
             responseObserver.onNext(response);
             responseObserver.onCompleted();
 
+            long afterRun = System.currentTimeMillis();
             System.out.print("Duration to run sortIntegers in milliseconds = ");
             System.out.println(afterRun - beforeRun);
             // return (afterRun - beforeRun);
