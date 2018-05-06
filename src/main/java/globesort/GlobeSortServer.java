@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
+import java.lang.System;
+
 public class GlobeSortServer {
     private Server server;
 
@@ -78,14 +80,23 @@ public class GlobeSortServer {
 
     static class GlobeSortImpl extends GlobeSortGrpc.GlobeSortImplBase {
         @Override
-        public void ping(Empty req, final StreamObserver<Empty> responseObserver) {
+        public long ping(Empty req, final StreamObserver<Empty> responseObserver) {
+            long beforeRun = System.currentTimeMillis();
+            
             Empty response = Empty.newBuilder().build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
+            long afterRun = System.currentTimeMillis();
+
+            System.out.print("Duration to run ping in milliseconds = ");
+            System.out.println(afterRun - beforeRun);
+            return (afterRun - beforeRun);
         }
 
         @Override
-        public void sortIntegers(IntArray req, final StreamObserver<IntArray> responseObserver) {
+        public long sortIntegers(IntArray req, final StreamObserver<IntArray> responseObserver) {
+            long beforeRun = System.currentTimeMillis();
+
             Integer[] values = req.getValuesList().toArray(new Integer[req.getValuesList().size()]);
             Arrays.sort(values);
             IntArray.Builder responseBuilder = IntArray.newBuilder();
@@ -95,6 +106,10 @@ public class GlobeSortServer {
             IntArray response = responseBuilder.build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
+
+            System.out.print("Duration to run sortIntegers in milliseconds = ");
+            System.out.println(afterRun - beforeRun);
+            return (afterRun - beforeRun);
         }
     }
 }

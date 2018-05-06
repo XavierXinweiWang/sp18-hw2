@@ -20,6 +20,10 @@ import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.lang.System;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class GlobeSortClient {
 
     private final ManagedChannel serverChannel;
@@ -90,11 +94,22 @@ public class GlobeSortClient {
 
         Integer[] values = genValues(cmd_args.getInt("num_values"));
 
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        System.out.println( sdf.format(cal.getTime()) );
+
+        long beforeRun = System.currentTimeMillis();
+
         GlobeSortClient client = new GlobeSortClient(cmd_args.getString("server_ip"), cmd_args.getInt("server_port"));
         try {
             client.run(values);
         } finally {
             client.shutdown();
         }
+
+        long afterRun = System.currentTimeMillis();
+        System.out.print("Duration to run values in milliseconds = ");
+        System.out.println(afterRun - beforeRun);
+
     }
 }
